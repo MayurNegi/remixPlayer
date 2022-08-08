@@ -50,11 +50,11 @@ export const RemixPlayer: React.FC = () => {
 		top: playbtn.value,
 	}));
 
-	const onInputChange = (text: string) => {
+	const onInputChange = React.useCallback((text: string) => {
 		setInput(text);
-	};
+	}, []);
 
-	const tapPlay = async () => {
+	const tapPlay = React.useCallback(async () => {
 		if(!audio.isLoaded()) {
 			const sound = new Sound(destinationPath(), undefined, (error) => {
 				if(!error) {
@@ -67,9 +67,9 @@ export const RemixPlayer: React.FC = () => {
 		} else {
 			audio.play();
 		}
-	};
+	}, [audio, setAudio, setIsPlaying, setProgress]);
 
-	const download = async () => {
+	const download = React.useCallback(async () => {
 		try {
 			const {promise} = await fs.downloadAudio(input, {
 				progressDivider: 5,
@@ -84,7 +84,7 @@ export const RemixPlayer: React.FC = () => {
 		} catch (error: any) {
 			console.log('error', error);
 		}
-	};
+	}, [input, setProgress]);
 
 	return (
 		<SafeAreaView style={styles.playerContainer}>
