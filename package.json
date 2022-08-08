@@ -12,7 +12,7 @@
   "dependencies": {
     "react": "18.0.0",
     "react-native": "0.69.3",
-    "react-native-fs": "^2.20.0",
+    "react-native-fs": "^2.19.0",
     "react-native-sound": "^0.11.2"
   },
   "devDependencies": {
