@@ -69,10 +69,11 @@ export const RemixPlayer: React.FC = () => {
 		}
 	}, [audio, setAudio, setIsPlaying, setProgress]);
 
-	const download = React.useCallback(async () => {
+	const download = async () => {
 		try {
-			const {promise} = await fs.downloadAudio(input, {
+			const {promise} = await fs.downloadAudio(input.trim(), {
 				progressDivider: 5,
+				begin: () => {},
 				progress: ({contentLength, bytesWritten}) => {
 					const p = Math.floor((bytesWritten / contentLength) * 10);
 					setProgress(p/10);
@@ -84,7 +85,7 @@ export const RemixPlayer: React.FC = () => {
 		} catch (error: any) {
 			console.log('error', error);
 		}
-	}, [input, setProgress]);
+	};
 
 	return (
 		<SafeAreaView style={styles.playerContainer}>
